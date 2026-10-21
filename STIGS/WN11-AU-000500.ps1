@@ -6,8 +6,8 @@
     Author          : Busayo Olusemoyin
     LinkedIn        : linkedin.com/in/busayo-o00
     GitHub          : github.com/Busayo-O
-    Date Created    : 2024-09-09
-    Last Modified   : 2024-09-09
+    Date Created    : 2026-10-21
+    Last Modified   : 2024-10-21
     Version         : 1.0
     CVEs            : N/A
     Plugin IDs      : N/A
@@ -26,7 +26,6 @@
     PS C:\> .\__remediation_template(STIG-ID-WN10-AU-000500).ps1 
 #>
 
-# YOUR CODE GOES HERE
 # Define the registry path and value
 $RegistryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application"
 $valueName = "MaxSize"
