@@ -1,0 +1,61 @@
+SYNOPSIS
+    This PowerShell script Solicited Remote Assistance is disabled on Windows 11 systems
+.NOTES
+    Author          : Busayo O
+    LinkedIn        : www.linkedin.com/in/busayo-o00
+    GitHub          : github.com/Busayo-O
+    Date Created    : 2024-10-23
+    Last Modified   : 2024-10-23
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000155
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID-WN11-CC-000155.ps1 
+#>
+
+$ValueName    = "fAllowToGetHelp"
+$DesiredValue = 0
+
+try {
+    # Create the registry key if it does not exist
+    if (-not (Test-Path -LiteralPath $RegistryPath)) {
+        New-Item -Path $RegistryPath -Force -ErrorAction Stop |
+            Out-Null
+    }
+
+    # Disable Solicited Remote Assistance
+    New-ItemProperty `
+        -Path $RegistryPath `
+        -Name $ValueName `
+        -Value $DesiredValue `
+        -PropertyType DWord `
+        -Force `
+        -ErrorAction Stop | Out-Null
+
+    # Verify the configuration
+    $ActualValue = (Get-ItemProperty `
+        -Path $RegistryPath `
+        -Name $ValueName `
+        -ErrorAction Stop).$ValueName
+
+    if ($ActualValue -eq $DesiredValue) {
+        Write-Host "COMPLIANT: WN11-CC-000155" -ForegroundColor Green
+        Write-Host "Solicited Remote Assistance is disabled."
+    }
+    else {
+        Write-Host "NON-COMPLIANT: Expected value 0." `
+            -ForegroundColor Red
+    }
+}
+catch {
+    Write-Error "Remediation failed: $($_.Exception.Message)"
+}
