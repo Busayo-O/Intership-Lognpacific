@@ -1,5 +1,5 @@
 SYNOPSIS
-    This PowerShell script Solicited Remote Assistance is disabled on Windows 11 systems
+    This PowerShell script ensures Solicited Remote Assistance is disabled on Windows 11 systems
 .NOTES
     Author          : Busayo O
     LinkedIn        : www.linkedin.com/in/busayo-o00
