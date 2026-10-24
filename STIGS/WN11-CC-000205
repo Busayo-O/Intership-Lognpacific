@@ -1,0 +1,42 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures Windows Telemetry is not configured to the Full level
+
+.NOTES
+    Author          : Busayo O
+    LinkedIn        : linkedin.com/in/busayo-o00/
+    GitHub          : github.com/Busayo-O
+    Date Created    : 2026-10-24
+    Last Modified   : 2026-10-24
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000205
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID-WN11-CC-000205.ps1 
+#>
+
+# Define the registry path
+$RegistryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"
+
+# Create the registry key if it does not exist
+if (-not (Test-Path $RegistryPath)) {
+    New-Item -Path $RegistryPath -Force | Out-Null
+}
+
+# Set AllowTelemetry to DWORD value 1
+New-ItemProperty -Path $RegistryPath `
+    -Name "AllowTelemetry" `
+    -Value 1 `
+    -PropertyType DWord `
+    -Force | Out-Null
+
+Write-Host "AllowTelemetry has been configured to DWORD value 1."
