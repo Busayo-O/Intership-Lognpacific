@@ -1,0 +1,60 @@
+<#
+.SYNOPSIS
+    This PowerShell script ensures that the network selection user interface is not displayed on the Windows 11 sign-in screen
+
+.NOTES
+    Author          : Busayo O
+    LinkedIn        : linkedin.com/in/busayo-o00/
+    GitHub          : github.com/Busayo-O
+    Date Created    : 2026-10-23
+    Last Modified   : 2026-10-23
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN11-CC-000120
+   
+
+.TESTED ON
+    Date(s) Tested  : 
+    Tested By       : 
+    Systems Tested  : 
+    PowerShell Ver. : 
+
+.USAGE
+    Put any usage instructions here.
+    Example syntax:
+    PS C:\> .\STIG-ID-WN11-CC-000120.ps1 
+#>
+
+$RegistryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System"
+$ValueName = "DontDisplayNetworkSelectionUI"
+$DesiredValue = 1
+
+try {
+    if (-not (Test-Path -LiteralPath $RegistryPath)) {
+        New-Item -Path $RegistryPath -Force -ErrorAction Stop |
+            Out-Null
+    }
+
+    New-ItemProperty `
+        -Path $RegistryPath `
+        -Name $ValueName `
+        -Value $DesiredValue `
+        -PropertyType DWord `
+        -Force `
+        -ErrorAction Stop | Out-Null
+
+    $ActualValue = (Get-ItemProperty `
+        -Path $RegistryPath `
+        -Name $ValueName `
+        -ErrorAction Stop).$ValueName
+
+    if ($ActualValue -eq $DesiredValue) {
+        Write-Host "COMPLIANT: WN11-CC-000120" -ForegroundColor Green
+    }
+    else {
+        Write-Host "NON-COMPLIANT" -ForegroundColor Red
+    }
+}
+catch {
+    Write-Error "Remediation failed: $($_.Exception.Message)"
+}
