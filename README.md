@@ -25,7 +25,7 @@ This Project targets the DISA STIG for Windows 11,the security hardening standar
 
 | STIG ID | Finding | Before | After | Script |
 |---|---|---|---|---|
-| WN11-SO-000030 | Audit policy using subcategories must be enabled | Failed | Passed | [WN11-AU-000050.ps1](scripts/WN11-AU-000050.ps1) |
+| WN11-SO-000030 | Audit policy using subcategories must be enabled | Failed | Passed | [WN11-SO-000030.ps1](scripts/WN11-SO-000030.ps1) |
 | WN11-SO-000030 | Audit subcategory settings must override category settings | Failed | Passed | [WN11-SO-000030.ps1](scripts/WN11-SO-000030.ps1) |
 | WN11-AU-000165 | Application event log size ≥ 32768 KB | Failed | Passed | [WN11-AU-000500.ps1](scripts/WN11-AU-000500.ps1) |
 | WN11-AU-000155 | Security event log size (one week of records; 5120000 KB in this audit) | Failed | Passed | [WN11-AU-000505.ps1](scripts/WN11-AU-000505.ps1) |
